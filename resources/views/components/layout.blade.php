@@ -28,7 +28,7 @@
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <x-nav-layout href="/home" :active="request()->is('home')">Home</x-nav-layout>
+                <x-nav-layout href="/" :active="request()->is('home')">Home</x-nav-layout>
                 <x-nav-layout href="/jobs" :active="request()->is('jobs')">Jobs</x-nav-layout>
                 <x-nav-layout href="/contact" :active="request()->is('contact')">Contact</x-nav-layout>
 
