@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobListing;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class JobListingController extends Controller
 {
@@ -48,46 +51,42 @@ class JobListingController extends Controller
     public function show(string $id)
     {
         $jobs = JobListing::find($id);
-        return view('jobs.show', ['jobs' => $jobs]);
+        return view('jobs\show', ['jobs' => $jobs]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(JobListing $job)
     {
-        $jobs = JobListing::find($id);
-        return view('jobs.edit', ['jobs' => $jobs]);
+         return view('jobs.edit', ['jobs' => $job]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(JobListing $job)
     {
         request()->validate([
             'title' => 'required|min:3',
             'sal' => 'required',
         ]);
 
-        $jobs = JobListing::findOrFail($id);
-
-        $jobs->update([
+        $job->update([
             'title' => request('title'),
             'sal' => request('sal'),
         ]);
 
-        return redirect('/jobs/'.$jobs->id);
+        return redirect('/jobs/'.$job->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(JobListing $job)
     {
-        $jobs = JobListing::findOrFail($id);
-
-        $jobs->delete();
+        $job->delete();
         return redirect('/jobs');
     }
+
 }
