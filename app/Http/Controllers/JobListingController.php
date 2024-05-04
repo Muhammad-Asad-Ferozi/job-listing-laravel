@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\{
+    JobDeleted,
+    JobPosted,
+    JobUpdated
+};
 use App\Models\JobListing;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class JobListingController extends Controller
 {
@@ -37,11 +43,15 @@ class JobListingController extends Controller
             'sal' => 'required',
         ]);
 
-        JobListing::create([
+        $job = JobListing::create([
             'title' => request('title'),
             'sal' => request('sal'),
             'employer_id' => 1,
         ]);
+
+
+        Mail::to($job->employer->user->email)->queue(new JobPosted($job));
+
         return redirect('/jobs');
     }
 
@@ -76,7 +86,7 @@ class JobListingController extends Controller
             'title' => request('title'),
             'sal' => request('sal'),
         ]);
-
+        Mail::to($job->employer->user->email)->queue(new JobUpdated($job));
         return redirect('/jobs/'.$job->id);
     }
 
@@ -85,6 +95,7 @@ class JobListingController extends Controller
      */
     public function destroy(JobListing $job)
     {
+        Mail::to($job->employer->user->email)->queue(new JobDeleted($job->title));
         $job->delete();
         return redirect('/jobs');
     }
