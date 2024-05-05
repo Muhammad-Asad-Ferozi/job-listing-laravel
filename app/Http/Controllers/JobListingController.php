@@ -10,6 +10,7 @@ use App\Mail\{
 use App\Models\JobListing;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -30,6 +31,8 @@ class JobListingController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        isset($user->employer) ? $employer = $user->employer : abort(403, 'You are not authorized to create a job listing');
         return view('jobs.create');
     }
 
@@ -42,12 +45,15 @@ class JobListingController extends Controller
             'title' => 'required|min:3',
             'sal' => 'required',
         ]);
-
+        $user = Auth::user();
+        
+        isset($user->employer) ?
         $job = JobListing::create([
             'title' => request('title'),
             'sal' => request('sal'),
-            'employer_id' => 1,
-        ]);
+            'employer_id' => $user->employer_id,
+        ]) : abort(403, 'You are not authorized to create a job listing');
+
 
 
         Mail::to($job->employer->user->email)->queue(new JobPosted($job));

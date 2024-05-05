@@ -16,11 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         JobListing::factory(10)->create();
-        Employer::factory(10)->create();
+        //Employer::factory()->create();
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password'=> '123',
         ]);
     }
 }

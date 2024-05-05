@@ -43,6 +43,6 @@ class User extends Authenticatable
 
     public function employer()
     {
-        return $this->belongsTo(Employer::class);
+        return $this->hasOne(Employer::class);
     }
 }

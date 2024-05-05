@@ -3,23 +3,37 @@
 use App\Http\Controllers\{
     RegisterUserController,
     JobListingController,
-    SessionController
+    SessionController,
+    ManageUserController
 };
+use App\Models\JobListing;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('/', 'home');
-Route::view('/contact', 'contact');
+
+Route::get('/', function () {
+    return view('home', ['latestJobs' => JobListing::latest()->take(3)->get()]);
+});
 
 
+Route::view('/contact', 'contact')->middleware('auth');
+
+
+
+
+//JOb listing
 //Route::resource('jobs', JobListingController::class);
-Route::get('/jobs', [JobListingController::class, 'index']);
+Route::get('/jobs', [JobListingController::class, 'index'])
+    ->middleware('auth');
 Route::post('/jobs', [JobListingController::class, 'store'])
     ->middleware('auth');
 Route::get('/jobs/create', [JobListingController::class, 'create'])
+->middleware(['auth']);
+
+Route::get('/jobs/{job}', [JobListingController::class, 'show'])
     ->middleware('auth');
-Route::get('/jobs/{job}', [JobListingController::class, 'show']);
 Route::get('/jobs/{job}/edit', [JobListingController::class, 'edit'])
     ->middleware('auth')
     ->can('edit', 'job');
@@ -37,6 +51,7 @@ Route::delete('/jobs/{job}', [JobListingController::class, 'destroy'])
 
 
 
+//AUTH
 
 Route::get('/register', [RegisterUserController::class, 'create']);
 Route::post('/register', [RegisterUserController::class, 'store']);
@@ -46,8 +61,17 @@ Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
 
+//USer management
+Route::middleware(['auth'])->group(function () {
+Route::get('/user', [ManageUserController::class, 'index']);
+Route::patch('/user/changeName', [ManageUserController::class, 'updateName']);
+Route::patch('/user/changePassword', [ManageUserController::class, 'updatePassword']);
+Route::post('/user/employer', [ManageUserController::class, 'becomeEmployer']);
+Route::patch('/user/employer', [ManageUserController::class, 'updateEmployer']);
+Route::post('/user/updateImg', [ManageUserController::class, 'updateImg']);
+Route::patch('/user/updateImg', [ManageUserController::class, 'updateImg']);
 
-
+});
 
 
 

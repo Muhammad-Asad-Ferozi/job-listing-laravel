@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Example custom classes */
+.mybg-maroon {
+    @apply bg-maroon;
+}
+
+.mybg-redi {
+    @apply bg-redi;
+}
+
+.mybg-cream {
+    @apply bg-cream;
+}
+
+.mybg-navy {
+    @apply bg-navy;
+}
+
+.mybg-sky {
+    @apply bg-sky;
+}
+
+.mytext-maroon {
+    @apply text-maroon;
+}
+
+.mytext-redi {
+    @apply text-redi;
+}
+
+.mytext-cream {
+    @apply text-cream;
+}
+
+.mytext-navy {
+    @apply text-navy;
+}
+
+.mytext-sky {
+    @apply text-sky;
+}
+
+
+/* Applying the custom text colors */
+.hover\:mytext-maroon:hover {
+    @apply text-maroon;
+}
+
+.hover\:mytext-redi:hover {
+    @apply text-redi;
+}
+
+.hover\:mytext-cream:hover {
+    @apply text-cream;
+}
+
+.hover\:mytext-navy:hover {
+    @apply text-navy;
+}
+
+.hover\:mytext-sky:hover {
+    @apply text-sky;
+}
+
+.hover\:mybg-maroon:hover {
+    @apply text-maroon;
+}
+
+.hover\:mybg-redi:hover {
+    @apply text-redi;
+}
+
+.hover\:mybg-cream:hover {
+    @apply text-cream;
+}
+
+.hover\:mybg-navy:hover {
+    @apply text-navy;
+}
+
+.hover\:mybg-sky:hover {
+    @apply text-sky;
+}

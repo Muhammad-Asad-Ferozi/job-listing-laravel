@@ -17,4 +17,5 @@ class JobListingPolicy
         return $result;
     }
 
+
 }
