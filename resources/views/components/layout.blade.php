@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="./">
+    <link rel="icon" href="{{  asset('storage/LogoFerozi.png') }}">
     <title>Job Listing</title>
     @vite(['resources/css/app.css'])
 </head>
@@ -17,8 +17,9 @@
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                            alt="Your Company">
+                        <a href="/">
+                        <img class="h-12 w-12" src="{{  asset('storage/LogoFerozi.png') }}"
+                            alt="Your Company"> </a>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-3">
@@ -84,11 +85,16 @@
     <!-- Footer -->
     <footer class="bg-navy mt-auto">
         <div class="container mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-            <div class="flex justify-center items-center">
+            <div class="flex justify-around items-center">
 
                 <div class="text-sm text-gray-300 ">
                     CopyRight &copy; 2024 by <a class="plain" target="_blank"
-                        href="https://github.com/Muhammad-Asad-Ferozi">Ferozi</a>. All Rights Reserved.
+                    href="https://github.com/Muhammad-Asad-Ferozi">Ferozi</a>. All Rights Reserved.
+                </div>
+                <div class="flex-shrink-0">
+                    <a class="plain" target="_blank" href="https://github.com/Muhammad-Asad-Ferozi">
+                    <img class="h-16 w-16" src="{{  asset('storage/LogoFerozi.png') }}"
+                        alt="Your Company"></a>
                 </div>
             </div>
         </div>
