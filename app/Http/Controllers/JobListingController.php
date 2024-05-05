@@ -43,14 +43,16 @@ class JobListingController extends Controller
     {
         request()->validate([
             'title' => 'required|min:3',
+            'description' => 'required|min:3', // Add this line to the validation rules
             'sal' => 'required',
         ]);
         $user = Auth::user();
-        
+
         isset($user->employer) ?
         $job = JobListing::create([
             'title' => request('title'),
             'sal' => request('sal'),
+            'description' => request('description'),
             'employer_id' => $user->employer_id,
         ]) : abort(403, 'You are not authorized to create a job listing');
 
@@ -85,11 +87,13 @@ class JobListingController extends Controller
     {
         request()->validate([
             'title' => 'required|min:3',
+            'description' => 'required|min:3',
             'sal' => 'required',
         ]);
 
         $job->update([
             'title' => request('title'),
+            'description' => request('description'),
             'sal' => request('sal'),
         ]);
         Mail::to($job->employer->user->email)->queue(new JobUpdated($job));

@@ -21,6 +21,7 @@ class JobListingFactory extends Factory
 
             'employer_id' => Employer::factory(),
             'title' => fake()->jobTitle(),
+            'description' => fake()->paragraph(),
             'sal' => '$10,000 USD',
 
         ];

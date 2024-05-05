@@ -22,6 +22,11 @@
                         <x-form-input type="text" name="sal" id="sal" value="{{ $jobs->sal }}" placeholder="$ USD" ></x-form-input>
                         <x-form-error name="sal"/>
                     </div>
+                    <x-form-field class="sm:col-span-6">
+                        <x-form-label for="description">Description</x-form-label>
+                        <x-form-textarea name="description" id="description" rows="4" required></x-form-textarea>
+                        <x-form-error name="description"/>
+                    </x-form-field>
                 </div>
             </div>
 
